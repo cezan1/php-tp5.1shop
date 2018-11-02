@@ -1,0 +1,9 @@
+{
+    "git.alwaysSignOff": true,
+    "git.autofetch": true,
+    "editor.cursorBlinking": "expand",
+    "editor.cursorStyle": "line",
+    "terminal.integrated.cursorBlinking": true,
+    "editor.multiCursorMergeOverlapping": false,
+    "search.location": "panel"
+}

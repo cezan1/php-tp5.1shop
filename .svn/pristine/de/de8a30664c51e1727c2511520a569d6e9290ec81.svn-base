@@ -1,0 +1,27 @@
+<?php
+// 公共函数文件
+/* 
+作用:分类的格式化操作
+@param:$data array 格式化数据
+@param:$id int 指定查找的分类id
+@param:$lev int 指定层次数字
+@return array 
+*/
+
+if(!function_exists('get-cate_tree'))
+{
+    function get_cate_tree($data,$id=0,$lev=1)
+    {
+        static $list = [];
+        foreach ($data as $key =>$value)
+      {
+            if($value['parent_id']==$id)
+            {
+            $value['lev'] = $lev;
+            $list[] = $value;
+            get_cate_tree($data,$value['id'],$lev+1);
+            }
+      }
+return $list;
+    }
+}
