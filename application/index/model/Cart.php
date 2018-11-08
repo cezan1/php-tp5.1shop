@@ -150,6 +150,10 @@ class Cart extends Model
 		// 清空cookie
 		cookie('cart',null);
 	}
+	public function delCart($user_id){
+		Db::name('cart')->where('user_id',$user_id)->delete();
+
+	}
 	
 }
 

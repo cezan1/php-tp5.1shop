@@ -6,6 +6,13 @@ use think\Controller;
     class Index extends Common
     {
     public function index(){
+    
+        echo $_SERVER['SERVER_ADDR'];
+        echo $_SERVER['SERVER_NAME'];
+        echo $_SERVER['REQUEST_TIME'];
+        echo $_SERVER['REMOTE_ADDR'];
+        echo $_SERVER['REQUEST_URI'];
+        echo __DIR__;
         
         if($this->request->isGet()){
           $goodsModel = model('Goods');

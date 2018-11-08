@@ -28,7 +28,8 @@ class Check extends Common
     }
  //-------------------------结算-------------
     public function order(){
-    //写入订单表  获取用户id
+	//写入订单表  获取用户id
+	dump(input());
     $user_id = $this->checkUserLogin();
     //接收并提交内容
     $order = input();
@@ -57,11 +58,8 @@ class Check extends Common
 
     Db::name('order_detail')->insert($order_detail);
 
-    //入库后删除购物车内容
-    $user_id = $value['user_id'];
-    $del = model('cart')->delCart($user_id);
 
-if($del){
+
     //根据支付方式输出内容处理
     switch ($order['pay']){
         case '1':
@@ -77,7 +75,8 @@ if($del){
            return "微信支付";
             break;
             }
-        }   
+	
+			   
     }
     //--------------------- 支付宝支付------------------------------------
     public function alipay($order_id,$money,$subject='测试商品购买',$body='desc-测试商品购买')
@@ -86,7 +85,7 @@ if($del){
 		require_once '../extend/alipay/pagepay/service/AlipayTradeService.php';
 		require_once '../extend/alipay/pagepay/buildermodel/AlipayTradePagePayContentBuilder.php';
 
-	    //商户订单号，商户网站订单系统中唯一订单号，必填
+	    //商户订单号，商户网站订单系统中唯一订单号，必填 trim去掉两端多余空格
 	    $out_trade_no = trim($order_id);
 
 	    //订单名称，必填
@@ -133,7 +132,8 @@ if($del){
 		if(!$order_info || $order_info['pay_status'] == 1){
 			echo '已经处理完成';exit;
         }
-        
+		//删掉购物车对应的购买付款的商品
+		
 		// 修改订单的状态为已经支付
 		Db::name('order')->where('id',$out_trade_no)->setField('pay_status',1);
 		echo '付款成功';
